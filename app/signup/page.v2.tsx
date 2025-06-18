@@ -6,27 +6,26 @@ import { supabase } from "@/lib/supabaseClient";
 import { SignUpSchema } from "@/lib/zod-schema";
 import { signUpProfileToDB } from "@/actions/signup";
 
-import { getAuthSession } from "@/lib/auth";
+import { useSession } from "next-auth/react";
 
-// import { signIn, useSession } from "next-auth/react";
-
-// export default function SignUpPage() {
-export default async function SignUpPage() {
-  const session = await getAuthSession();
-
+export default function SignUpPage() {
   const router = useRouter();
-  const [email, setEmail] = useState(session?.user?.email || "");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState(session?.user?.name || "");
-  const [phone, setPhone] = useState(session?.user?.phone || "");
-  const [street, setStreet] = useState(session?.user?.street || "");
-  const [city, setCity] = useState(session?.user?.city || "");
-  const [state, setState] = useState(session?.user?.state || "");
-  const [zipcode, setZipcode] = useState(session?.user?.zipcode || "");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipcode] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
+  const { data: sessionData } = useSession();
+
+  console.log("sessionData", sessionData);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,16 +33,16 @@ export default async function SignUpPage() {
     setMessage("");
     setFormErrors({});
 
-    // const { data: session } = useSession();
+    console.log("sessionData2", sessionData);
 
     const result = SignUpSchema.safeParse({
-      name,
-      phone,
-      street,
-      city,
-      state,
-      zipcode,
-      email,
+      name: sessionData?.user.name || name,
+      phone: sessionData?.user.phone || phone,
+      street: sessionData?.user.street || street,
+      city: sessionData?.user.city || city,
+      state: sessionData?.user.state || state,
+      zipcode: sessionData?.user.zipcode || zipcode,
+      email: sessionData?.user.email || email,
       password,
       confirmPassword,
     });
@@ -59,20 +58,22 @@ export default async function SignUpPage() {
       return;
     }
 
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp(
+      {
+        email,
+        password,
+      }
+    );
 
-    console.log("signup page data ", data);
+    console.log("signup page data ", signUpData);
 
-    if (signUpError || !data.user) {
+    if (signUpError || !signUpData.user) {
       setError(signUpError?.message || "Sign-up failed");
       return;
     }
 
     const insertResult = await signUpProfileToDB({
-      id: data.user.id,
+      id: signUpData.user.id,
       name,
       phone,
       street,
@@ -100,7 +101,7 @@ export default async function SignUpPage() {
           <input
             type="text"
             className="border px-2 py-1 w-full"
-            value={name}
+            value={sessionData?.user.name || name}
             onChange={(e) => setName(e.target.value)}
           />
           {formErrors.name && (
@@ -112,7 +113,7 @@ export default async function SignUpPage() {
           <input
             type="tel"
             className="border px-2 py-1 w-full"
-            value={phone}
+            value={sessionData?.user.phone || phone}
             onChange={(e) => setPhone(e.target.value)}
           />
           {formErrors.phone && (
@@ -124,7 +125,7 @@ export default async function SignUpPage() {
           <input
             type="text"
             className="border px-2 py-1 w-full"
-            value={street}
+            value={sessionData?.user.street || street}
             onChange={(e) => setStreet(e.target.value)}
           />
           {formErrors.street && (
@@ -136,7 +137,7 @@ export default async function SignUpPage() {
           <input
             type="text"
             className="border px-2 py-1 w-full"
-            value={city}
+            value={sessionData?.user.city || city}
             onChange={(e) => setCity(e.target.value)}
           />
           {formErrors.city && (
@@ -148,7 +149,7 @@ export default async function SignUpPage() {
           <input
             type="text"
             className="border px-2 py-1 w-full"
-            value={state}
+            value={sessionData?.user.state || state}
             onChange={(e) => setState(e.target.value)}
           />
           {formErrors.state && (
@@ -160,7 +161,7 @@ export default async function SignUpPage() {
           <input
             type="text"
             className="border px-2 py-1 w-full"
-            value={zipcode}
+            value={sessionData?.user.zipcode || zipcode}
             onChange={(e) => setZipcode(e.target.value)}
           />
           {formErrors.zipcode && (
@@ -172,7 +173,7 @@ export default async function SignUpPage() {
           <input
             type="text"
             className="border px-2 py-1 w-full"
-            value={email}
+            value={sessionData?.user.email || email}
             onChange={(e) => setEmail(e.target.value)}
           />
           {formErrors.email && (
