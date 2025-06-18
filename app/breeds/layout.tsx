@@ -2,6 +2,8 @@ import axios from 'axios';
 import React from 'react'
 import { BreedsProvider } from './BreedsContext';
 
+export const dynamic = "force-dynamic";
+
 async function getBreeds() {
 
   const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/dog-breeds`);
