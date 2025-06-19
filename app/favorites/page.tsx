@@ -19,25 +19,7 @@ async function getFavorites() {
           "max": 16,
           "min": 14
         },
-        "male_weight": {
-          "max": 5,
-          "min": 3
-        },
-        "female_weight": {
-          "max": 5,
-          "min": 3
-        },
-        "hypoallergenic": true
       },
-      "relationships": {
-        "group": {
-          "data": {
-            "id": "f56dc4b1-ba1a-4454-8ce2-bd5d41404a0c",
-            "type": "group"
-          }
-        }
-      }
-    },
     {
       "id": "dd9362cc-52e0-462d-b856-fccdcf24b140",
       "type": "breed",
@@ -48,40 +30,8 @@ async function getFavorites() {
           "max": 14,
           "min": 12
         },
-        "male_weight": {
-          "max": 27,
-          "min": 23
-        },
-        "female_weight": {
-          "max": 25,
-          "min": 20
-        },
-        "hypoallergenic": false
-      },
-      "relationships": {
-        "group": {
-          "data": {
-            "id": "be0147df-7755-4228-b132-2518c0c6d10d",
-            "type": "group"
-          }
-        }
       }
-    }
-  ],
-  "meta": {
-    "pagination": {
-      "current": 1,
-      "next": 2,
-      "last": 29,
-      "records": 283
-    }
-  },
-  "links": {
-    "self": "https://dogapi.dog/api/v2/breeds",
-    "current": "https://dogapi.dog/api/v2/breeds?page[number]=1",
-    "next": "https://dogapi.dog/api/v2/breeds?page[number]=2",
-    "last": "https://dogapi.dog/api/v2/breeds?page[number]=29"
-  }
+  ]
 }
     return res.data;
 }
