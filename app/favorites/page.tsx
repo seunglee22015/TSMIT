@@ -6,29 +6,29 @@ export const metadata = {
 };
 
 async function getFavorites() {
-    // const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/favorite-breeds`);
-    const res = {
-  "data": [
-    {
-      "id": "036feed0-da8a-42c9-ab9a-57449b530b13",
-      "name": "Affenpinscher",
-      "description": "The Affenpinscher is a small and playful breed of dog that was originally bred in Germany for hunting small game. They are intelligent, energetic, and affectionate, and make excellent companion dogs.",
-      "life": {
-          "max": 16,
-          "min": 14
-        }
-    },
-    {
-      "id": "dd9362cc-52e0-462d-b856-fccdcf24b140",
-      "name": "Afghan Hound",
-      "description": "The Afghan Hound is a large and elegant breed of dog that was originally bred in Afghanistan for hunting small game. They are intelligent, independent, and athletic, and make excellent companion dogs.",
-      "life": {
-          "max": 14,
-          "min": 12
-      }
-    }
-  ]
-}
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/favorite-breeds`);
+//     const res = {
+//   "data": [
+//     {
+//       "id": "036feed0-da8a-42c9-ab9a-57449b530b13",
+//       "name": "Affenpinscher",
+//       "description": "The Affenpinscher is a small and playful breed of dog that was originally bred in Germany for hunting small game. They are intelligent, energetic, and affectionate, and make excellent companion dogs.",
+//       "life": {
+//           "max": 16,
+//           "min": 14
+//         }
+//     },
+//     {
+//       "id": "dd9362cc-52e0-462d-b856-fccdcf24b140",
+//       "name": "Afghan Hound",
+//       "description": "The Afghan Hound is a large and elegant breed of dog that was originally bred in Afghanistan for hunting small game. They are intelligent, independent, and athletic, and make excellent companion dogs.",
+//       "life": {
+//           "max": 14,
+//           "min": 12
+//       }
+//     }
+//   ]
+// }
     return res.data;
 }
 
