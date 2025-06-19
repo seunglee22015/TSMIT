@@ -18,8 +18,9 @@ async function getFavorites() {
         "life": {
           "max": 16,
           "min": 14
-        },
-      },
+        }
+      }
+    },
     {
       "id": "dd9362cc-52e0-462d-b856-fccdcf24b140",
       "type": "breed",
@@ -29,8 +30,9 @@ async function getFavorites() {
         "life": {
           "max": 14,
           "min": 12
-        },
+        }
       }
+    }
   ]
 }
     return res.data;
